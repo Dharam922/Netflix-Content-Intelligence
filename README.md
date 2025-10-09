@@ -148,28 +148,10 @@ GROUP BY 1;
 
 **Objective:** Count the number of content items in each genre.
 
-### 10.Find each year and the average numbers of content release in India on netflix. 
-return top 5 year with highest avg content release!
-
-```sql
-SELECT 
-    country,
-    release_year,
-    COUNT(show_id) AS total_release,
-    ROUND(
-        COUNT(show_id)::numeric /
-        (SELECT COUNT(show_id) FROM netflix WHERE country = 'India')::numeric * 100, 2
-    ) AS avg_release
-FROM netflix
-WHERE country = 'India'
-GROUP BY country, release_year
-ORDER BY avg_release DESC
-LIMIT 5;
-```
 
 **Objective:** Calculate and rank years by the average number of content releases by India.
 
-### 11. List All Movies that are Documentaries
+### 10. List All Movies that are Documentaries
 
 ```sql
 SELECT * 
@@ -179,7 +161,7 @@ WHERE listed_in LIKE '%Documentaries';
 
 **Objective:** Retrieve all movies classified as documentaries.
 
-### 12. Find All Content Without a Director
+### 11. Find All Content Without a Director
 
 ```sql
 SELECT * 
@@ -189,7 +171,7 @@ WHERE director IS NULL;
 
 **Objective:** List content that does not have a director.
 
-### 13. Find How Many Movies Actor 'Salman Khan' Appeared in the Last 10 Years
+### 12. Find How Many Movies Actor 'Salman Khan' Appeared in the Last 10 Years
 
 ```sql
 SELECT * 
@@ -200,7 +182,7 @@ WHERE casts LIKE '%Salman Khan%'
 
 **Objective:** Count the number of movies featuring 'Salman Khan' in the last 10 years.
 
-### 14. Find the Top 10 Actors Who Have Appeared in the Highest Number of Movies Produced in India
+### 13. Find the Top 10 Actors Who Have Appeared in the Highest Number of Movies Produced in India
 
 ```sql
 SELECT 
@@ -215,7 +197,7 @@ LIMIT 10;
 
 **Objective:** Identify the top 10 actors with the most appearances in Indian-produced movies.
 
-### 15. Categorize Content Based on the Presence of 'Kill' and 'Violence' Keywords
+### 14. Categorize Content Based on the Presence of 'Kill' and 'Violence' Keywords
 
 ```sql
 SELECT 
