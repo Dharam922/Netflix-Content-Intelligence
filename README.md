@@ -55,28 +55,11 @@ GROUP BY 1;
 
 ### 2. Find the Most Common Rating for Movies and TV Shows
 
-```sql
-WITH RatingCounts AS (
-    SELECT 
-        type,
-        rating,
-        COUNT(*) AS rating_count
-    FROM netflix
-    GROUP BY type, rating
-),
-RankedRatings AS (
-    SELECT 
-        type,
-        rating,
-        rating_count,
-        RANK() OVER (PARTITION BY type ORDER BY rating_count DESC) AS rank
-    FROM RatingCounts
-)
-SELECT 
-    type,
-    rating AS most_frequent_rating
-FROM RankedRatings
-WHERE rank = 1;
+```SELECT type, rating, COUNT(*) AS count
+FROM netflix 
+GROUP BY type, rating
+ORDER BY type, count DESC;
+
 ```
 
 **Objective:** Identify the most frequently occurring rating for each type of content.
@@ -94,18 +77,13 @@ WHERE release_year = 2020;
 ### 4. Find the Top 5 Countries with the Most Content on Netflix
 
 ```sql
-SELECT * 
-FROM
-(
-    SELECT 
-        UNNEST(STRING_TO_ARRAY(country, ',')) AS country,
-        COUNT(*) AS total_content
-    FROM netflix
-    GROUP BY 1
-) AS t1
+SELECT country, COUNT(*) AS total_content 
+FROM netflix 
 WHERE country IS NOT NULL
-ORDER BY total_content DESC
+GROUP BY country 
+ORDER BY total_content DESC 
 LIMIT 5;
+
 ```
 
 **Objective:** Identify the top 5 countries with the highest number of content items.
