@@ -56,14 +56,17 @@ GROUP BY 1;
 ### 2. Find the Most Common Rating for Movies and TV Shows
 
 ```
-select type,rating
-from 
-(select type,rating,count(rating) as cnt,
-rank() over(partition by type order by count(rating) desc) 
-from project1
-group by 1,2
-order by 1,3 desc) as t
-where rank=1;
+SELECT TYPE, RATING
+FROM 
+(
+    SELECT TYPE, RATING, COUNT(RATING) AS CNT,
+    RANK() OVER (PARTITION BY TYPE ORDER BY COUNT(RATING) DESC)
+    FROM PROJECT1
+    GROUP BY 1, 2
+    ORDER BY 1, 3 DESC
+) AS T
+WHERE RANK = 1;
+
 ```
 
 **Objective:** Identify the most frequently occurring rating for each type of content.
