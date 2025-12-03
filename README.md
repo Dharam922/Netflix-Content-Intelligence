@@ -61,7 +61,7 @@ FROM
 (
     SELECT TYPE, RATING, COUNT(RATING) AS CNT,
     RANK() OVER (PARTITION BY TYPE ORDER BY COUNT(RATING) DESC)
-    FROM PROJECT1
+    FROM NETFLIX
     GROUP BY 1, 2
     ORDER BY 1, 3 DESC
 ) AS T
@@ -84,12 +84,13 @@ WHERE release_year = 2020;
 ### 4. Find the Top 5 Countries with the Most Content on Netflix
 
 ```sql
-SELECT country, COUNT(*) AS total_content 
-FROM netflix 
-WHERE country IS NOT NULL
-GROUP BY country 
-ORDER BY total_content DESC 
+SELECT UNNEST(STRING_TO_ARRAY(COUNTRY, ',')) AS NEW_COUNTRY,
+       COUNT(COUNTRY) AS TOTOAL_CONTENT
+FROM NETFLIX
+GROUP BY 1
+ORDER BY 2 DESC
 LIMIT 5;
+
 
 ```
 
