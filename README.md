@@ -214,7 +214,7 @@ SELECT
 FROM (
     SELECT 
         CASE 
-            WHEN description ILIKE '%kill%' OR description ILIKE '%violence%' THEN 'Bad'
+           WHEN "description" ~* '\mkill\M' OR "description" ~* '\mVIOLENCE\M' THEN 'Bad'
             ELSE 'Good'
         END AS category
     FROM netflix
